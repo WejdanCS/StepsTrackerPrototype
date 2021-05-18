@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/model/User.dart';
+import 'package:steps_tracker_prototype/view/home_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -59,6 +60,7 @@ class LoginPage extends StatelessWidget {
       var result=await user.loginUser(_nameController.text);
       print("USEEER:$result");
       print("$result");
+      // Navigator.of(context).popAndPushNamed(HomePage.id);
     }catch(e){
       print("fff");
       showDialog(
@@ -66,7 +68,7 @@ class LoginPage extends StatelessWidget {
           builder: (BuildContext context){
             return AlertDialog(
               title: Text("Alert Dialog"),
-              content: Text("$e"),
+              content: Text("${e.message}"),
             );
           }
       );

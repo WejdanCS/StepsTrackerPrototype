@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:steps_tracker_prototype/utils/constants.dart';
 import 'package:steps_tracker_prototype/view/landing_page.dart';
 
 import 'model/User.dart';
@@ -18,9 +19,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      // theme: ThemeData(
-      //   // primarySwatch: ,
-      // ),
+      theme: ThemeData(
+        accentColor:Constant.primaryColor ,
+      ),
       home: LandingPage(),
     );
   }

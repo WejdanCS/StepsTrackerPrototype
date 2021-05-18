@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:steps_tracker_prototype/auth/authentication.dart';
+import 'package:steps_tracker_prototype/utils/error_handler.dart';
 
 class StepsTrackerUser extends ChangeNotifier{
    String _name;
@@ -12,21 +13,15 @@ class StepsTrackerUser extends ChangeNotifier{
   Future<String> loginUser(name) async {
 
     if(nameIsValid(name)==1){
-      try{
       _name=name;
       _user=await signIn();
       print("User:${_user.uid}");
       notifyListeners();
-        // print(user);
         return "Sign in successfully";
-      }catch(e){
-        print("ERROR:${e.message}");
-        return "ERROR:${e.message}";
-      }
     }
     else{
       print("Error:Name is Empty");
-      return throw "Error:Name is Empty";
+      throw ErrorMessage("Name is Empty");
     }
   }
 }
