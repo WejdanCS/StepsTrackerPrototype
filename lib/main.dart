@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
 import 'package:steps_tracker_prototype/view/landing_page.dart';
+import 'package:steps_tracker_prototype/view/login_page.dart';
 
 import 'model/User.dart';
 
@@ -22,7 +23,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         accentColor:Constant.primaryColor ,
       ),
-      home: LandingPage(),
+      initialRoute: LandingPage.id,
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        LandingPage.id: (context) => LandingPage(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        LoginPage.id: (context) => LandingPage(),
+      },
     );
   }
 }

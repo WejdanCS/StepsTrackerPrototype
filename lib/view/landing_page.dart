@@ -4,6 +4,7 @@ import 'package:steps_tracker_prototype/model/User.dart';
 import 'package:steps_tracker_prototype/view/home_page.dart';
 import 'package:steps_tracker_prototype/view/login_page.dart';
 class LandingPage extends StatefulWidget {
+  static const id="/LandingPage";
   const LandingPage({Key key}) : super(key: key);
 
   @override
@@ -21,6 +22,7 @@ class _LandingPageState extends State<LandingPage> {
       print("User:${_userProvider.user}");
       return LoginPage();
     }else{
+      print("User:${_userProvider.user}");
       return HomePage();
     }
 

@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/model/User.dart';
-import 'package:steps_tracker_prototype/view/home_page.dart';
-
 class LoginPage extends StatelessWidget {
+  static const id="/LoginPage";
   const LoginPage({Key key}) : super(key: key);
 
 
@@ -57,9 +56,9 @@ class LoginPage extends StatelessWidget {
 
   _loginUser(context,user,_nameController)async {
     try{
-      var result=await user.loginUser(_nameController.text);
-      print("USEEER:$result");
-      print("$result");
+      await user.loginUser(_nameController.text);
+      // print("USEEER:$result");
+      // print("$result");
       // Navigator.of(context).popAndPushNamed(HomePage.id);
     }catch(e){
       print("fff");

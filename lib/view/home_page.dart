@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
+import 'package:steps_tracker_prototype/view/ProfilePage.dart';
+import 'package:steps_tracker_prototype/view/home_content_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -13,9 +15,9 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List<Widget> _children =[
     //homeContent
-    Container(color: Colors.white,),
-    Container(color: Colors.grey,),
-    Container(color: Colors.white70,)
+    HomeContent(),
+    Container(color: Colors.white70,),
+    ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {
