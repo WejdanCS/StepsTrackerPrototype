@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
+import 'package:steps_tracker_prototype/utils/pedometer.dart';
 import 'package:steps_tracker_prototype/view/landing_page.dart';
 import 'package:steps_tracker_prototype/view/login_page.dart';
 
@@ -10,7 +11,12 @@ import 'model/User.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
-  runApp(ChangeNotifierProvider(create: (context) => StepsTrackerUser(), child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => StepsTrackerUser()),
+    ChangeNotifierProvider(create: (context) => StepsTracker()),
+
+  ],
+  child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

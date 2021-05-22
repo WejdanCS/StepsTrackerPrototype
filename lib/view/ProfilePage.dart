@@ -40,10 +40,9 @@ class _ProfilePageState extends State<ProfilePage> {
   signOut(_userProvider)async {
     try{
       await _userProvider.signOutUser();
+      _userProvider=null;
       print("signOut Successfully");
       Navigator.of(context).popAndPushNamed(LandingPage.id);
-      // Navigator.of(context).pop();
-
     }catch(e){
       print("Error:${e.message}");
     }

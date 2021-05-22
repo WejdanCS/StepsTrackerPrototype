@@ -3,6 +3,7 @@ import 'package:pedometer/pedometer.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/model/User.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
+import 'package:steps_tracker_prototype/utils/pedometer.dart';
 class HomeContent extends StatefulWidget {
   const HomeContent({Key key}) : super(key: key);
 
@@ -12,32 +13,11 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
   StepsTrackerUser _userProvider;
+  StepsTracker _stepsTrackerProvider;
   @override
   void initState() {
-      // _userProvider.initPlatformState();
-
-    // Future.delayed(
-    //     Duration.zero,()=>_userProvider.initPlatformState
-    //
-    // );
     super.initState();
-    // if(_userProvider!=null){
-    //   print("USSSSERR:${_userProvider.steps}");
-    //   _userProvider.initPlatformState();
-    // }
-
-
   }
-  //
-  // @override
-  // void didChangeDependencies() {
-  //   if(_userProvider!=null){
-  //   // initPlatformState
-  //     _userProvider.initPlatformState();
-  //   }
-  //   super.didChangeDependencies();
-  // }
-
   @override
   Widget build(BuildContext context) {
     //
@@ -122,13 +102,9 @@ class _HomeContentState extends State<HomeContent> {
   void didChangeDependencies() {
     print("UUUUSSSEEEEERRR");
     _userProvider=Provider.of<StepsTrackerUser>(context);
-  //   // _userProvider=Provider.of<StepsTrackerUser>(context, listen: true);
-  //   if(_userProvider!=null){
-  //     print("User provider::${_userProvider.steps}");
-      _userProvider.initPlatformState();
-  //
-  //
-  //   }
+    _stepsTrackerProvider=Provider.of<StepsTracker>(context);
+    _stepsTrackerProvider.initPlatformState();
+    _userProvider.saveSteps(_stepsTrackerProvider.steps);
     super.didChangeDependencies();
   }
 }
