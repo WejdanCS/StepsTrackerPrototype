@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/model/User.dart';
+import 'package:steps_tracker_prototype/services/auth/firebase_functions.dart';
 class LoginPage extends StatelessWidget {
   static const id="/LoginPage";
   const LoginPage({Key key}) : super(key: key);
@@ -57,6 +58,7 @@ class LoginPage extends StatelessWidget {
   _loginUser(context,user,_nameController)async {
     try{
       await user.loginUser(_nameController.text);
+      await FireStoreFunctions().addUser(user);
       // print("USEEER:$result");
       // print("$result");
       // Navigator.of(context).popAndPushNamed(HomePage.id);
