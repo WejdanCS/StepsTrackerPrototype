@@ -1,5 +1,6 @@
 
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:steps_tracker_prototype/model/User.dart';
 import 'package:steps_tracker_prototype/services/auth/authentication.dart';
@@ -8,23 +9,15 @@ import 'package:steps_tracker_prototype/utils/error_handler.dart';
 
 
 class UserController extends ChangeNotifier{
-  StepsTrackerUser _stepsTrackerUser = StepsTrackerUser();
+  StepsTrackerUser stepsTrackerUser=StepsTrackerUser();
 
-
-  StepsTrackerUser get stepsTrackerUser => _stepsTrackerUser;
-
-
-  set stepsTrackerUser(StepsTrackerUser value) {
-    _stepsTrackerUser = value;
-  }
-
-  loginUser(context,_nameController)async {
+  loginUser(context,nameController)async {
     try{
-      // await user.loginUser(_nameController.text);
-      if (nameIsValid(_nameController.text) == 1) {
-        stepsTrackerUser.name = _nameController.text;
-        stepsTrackerUser.user= await signIn();
-        stepsTrackerUser.uid=stepsTrackerUser.user.uid;
+      if (nameIsValid(nameController.text) == 1) {
+        // stepsTrackerUser.name = _nameController.text;
+         User user= await signIn();
+        // stepsTrackerUser.uid=stepsTrackerUser.user.uid;
+         stepsTrackerUser=StepsTrackerUser(name: nameController.text,uid: user.uid,user: user);
         print("User:${stepsTrackerUser.user.uid}");
         notifyListeners();
         // return "Sign in successfully";
@@ -54,15 +47,15 @@ class UserController extends ChangeNotifier{
   }
   Future<void> signOutUser() async {
     await signOut();
-    print("user:${_stepsTrackerUser.user}");
-    _stepsTrackerUser.user=null;
-    print("user:${_stepsTrackerUser.user}");
+    print("user:${stepsTrackerUser.user}");
+    stepsTrackerUser.user=null;
+    print("user:${stepsTrackerUser.user}");
     notifyListeners();
   }
 
   void saveSteps(dynamic steps){
-    _stepsTrackerUser.steps=steps;
-    FireStoreFunctions().updateSteps(steps,_stepsTrackerUser.uid);
+    stepsTrackerUser.steps=steps;
+    FireStoreFunctions().updateSteps(steps,stepsTrackerUser.uid);
 
     // notifyListeners();
   }
