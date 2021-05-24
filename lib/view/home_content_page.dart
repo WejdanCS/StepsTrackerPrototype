@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:provider/provider.dart';
+import 'package:steps_tracker_prototype/controller/user_controller.dart';
 import 'package:steps_tracker_prototype/model/User.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
 import 'package:steps_tracker_prototype/utils/pedometer.dart';
@@ -12,7 +13,9 @@ class HomeContent extends StatefulWidget {
 }
 
 class _HomeContentState extends State<HomeContent> {
-  StepsTrackerUser _userProvider;
+  UserController userController;
+  StepsTrackerUser user;
+
   StepsTracker _stepsTrackerProvider;
   @override
   void initState() {
@@ -21,12 +24,12 @@ class _HomeContentState extends State<HomeContent> {
   @override
   Widget build(BuildContext context) {
     //
-    print("User provider::${_userProvider.steps}");
+    print("User provider steps:${user.steps}");
 
     double _width=MediaQuery.of(context).size.width;
     double _height=MediaQuery.of(context).size.height;
-    print(_userProvider.name);
-    print(_userProvider.steps);
+    print(user.name);
+    print(user.steps);
 
 
     return Container(
@@ -44,7 +47,7 @@ class _HomeContentState extends State<HomeContent> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //steps _steps
-                    Text("${_userProvider.steps}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Constant.primaryColor),),
+                    Text("${user.steps}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Constant.primaryColor),),
 
                     // Text("${"255"}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Constant.primaryColor),),
                     SizedBox(width: _width*0.01,),
@@ -101,10 +104,11 @@ class _HomeContentState extends State<HomeContent> {
 
   void didChangeDependencies() {
     print("UUUUSSSEEEEERRR");
-    _userProvider=Provider.of<StepsTrackerUser>(context);
+    userController=Provider.of<UserController>(context);
+    user= userController.stepsTrackerUser;
     _stepsTrackerProvider=Provider.of<StepsTracker>(context);
     _stepsTrackerProvider.initPlatformState();
-    _userProvider.saveSteps(_stepsTrackerProvider.steps);
+    userController.saveSteps(_stepsTrackerProvider.steps);
     super.didChangeDependencies();
   }
 }
