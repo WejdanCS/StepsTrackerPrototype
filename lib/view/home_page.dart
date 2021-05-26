@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
 import 'package:steps_tracker_prototype/view/ProfilePage.dart';
+import 'package:steps_tracker_prototype/view/catalog_page.dart';
 import 'package:steps_tracker_prototype/view/home_content_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,7 +30,9 @@ class _HomePageState extends State<HomePage> {
         title: Text("Steps Tracker",style:TextStyle(color: Color(0xFF535151)) ,),
         leading: IconButton(
             icon: Icon(Icons.card_giftcard,color: Constant.thirdColor,),
-            onPressed: cataloge
+            onPressed: ()=>{
+              Navigator.of(context).pushNamed(CatalogPage.id)
+            }
         ),
       ),
       bottomNavigationBar:
