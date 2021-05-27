@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:steps_tracker_prototype/model/partner.dart';
 
 class Reward{
@@ -8,7 +9,7 @@ class Reward{
   String rewardDesc;
   String coupon;
   int points;
-  Partner partner;
+  DocumentReference partner;
 
   Reward({this.partnerId,this.rewardId,this.rewardName, this.rewardImage, this.rewardDesc,
       this.coupon, this.points,this.partner});

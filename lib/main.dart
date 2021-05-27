@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:steps_tracker_prototype/controller/partners_controller.dart';
 import 'package:steps_tracker_prototype/controller/rewards_controller.dart';
 import 'package:steps_tracker_prototype/controller/user_controller.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
@@ -18,6 +19,8 @@ void main() {
     ChangeNotifierProvider(create: (context) => UserController()),
     ChangeNotifierProvider(create: (context) => StepsTracker()),
     ChangeNotifierProvider(create: (context)=> RewardController()),
+    ChangeNotifierProvider(create: (context)=> PartnersController()),
+
 
   ],
   child: MyApp()));
