@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/controller/user_controller.dart';
@@ -43,7 +44,8 @@ class _HomeContentState extends State<HomeContent> {
             //Number of steps
             Column(
               children: [
-                Image.asset('assets/images/feets.png',width: 200,height: 200,),
+                SvgPicture.asset("assets/images/feets.svg",width: 200,height: 200,),
+                // Image.asset('assets/images/feets.png',width: 200,height: 200,),
                 SizedBox(height: _height*0.02,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
