@@ -13,4 +13,7 @@ class Reward{
 
   Reward({this.partnerId,this.rewardId,this.rewardName, this.rewardImage, this.rewardDesc,
       this.coupon, this.points,this.partner});
+
+
+
 }

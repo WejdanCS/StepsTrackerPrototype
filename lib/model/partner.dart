@@ -4,4 +4,5 @@ class Partner{
 
    Partner({this.partnerId, this.partnerName});
 
+
 }

@@ -19,7 +19,7 @@ void main() {
     ChangeNotifierProvider(create: (context) => UserController()),
     ChangeNotifierProvider(create: (context) => StepsTracker()),
     ChangeNotifierProvider(create: (context)=> RewardController()),
-    ChangeNotifierProvider(create: (context)=> PartnersController()),
+    // ChangeNotifierProvider(create: (context)=> PartnersController()),
 
 
   ],

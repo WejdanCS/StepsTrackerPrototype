@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 
 class StepsTracker extends ChangeNotifier{
+
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = '?', _steps = '?';
   get steps => _steps;
 
-  //--------user steps
+  Stream<StepCount> get stepCountStream =>
+      _stepCountStream; //--------user steps
   void initPlatformState() {
     print("ggg");
     _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
@@ -33,6 +35,7 @@ class StepsTracker extends ChangeNotifier{
 
   void onStepCount(StepCount event) {
     print(event);
+    print(event.timeStamp);
     _steps = event.steps.toString();
     notifyListeners();
   }
@@ -43,4 +46,7 @@ class StepsTracker extends ChangeNotifier{
     print(_status);
     notifyListeners();
   }
+
+  Stream<PedestrianStatus> get pedestrianStatusStream =>
+      _pedestrianStatusStream;
 }

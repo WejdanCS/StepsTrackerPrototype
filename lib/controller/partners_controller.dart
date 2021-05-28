@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:steps_tracker_prototype/model/partner.dart';
 import 'package:steps_tracker_prototype/model/reward.dart';
 
-class PartnersController extends ChangeNotifier{
+class PartnersController {
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
-  List<Partner> _partners=[];
+  // List<Partner> _partners=[];
   // Reward reward =Reward();
-  Stream streamPartner;
+  Future<DocumentSnapshot<Map<String, dynamic>>> streamPartner;
 
-  Stream getPartnerInfo(partnerId){
-    streamPartner=_fireStore.collection("partners").doc(partnerId).snapshots().asBroadcastStream();
+  Future<DocumentSnapshot<Map<String, dynamic>>> getPartnerInfo(partnerId){
+    streamPartner=_fireStore.collection("partners").doc(partnerId).get();
            //     .snapshots().forEach((element) {
            //   print(element["partnerName"]);
            //    partner=Partner(partnerId: partnerId,
@@ -52,23 +52,23 @@ class PartnersController extends ChangeNotifier{
   // }
 
 
-   addPartnerInfo(snapshot){
-    for (var doc in snapshot.data.docs) {
-      print("wejS");
-      var data = doc;
-      // var partnerName;
-      // var partnerRef=getPartnerName(data.get("partnerId")).map((event) =>{
-      //   partnerName=event["partnerName"]
-      //
-      // });
-      var reward = Partner(
-        partnerId: data.id,
-        partnerName: data.get("partnerName")
-      );
-      _partners.add(reward);
-    }
-    // notifyListeners();
-  }
+  //  addPartnerInfo(snapshot){
+  //   for (var doc in snapshot.data.docs) {
+  //     print("wejS");
+  //     var data = doc;
+  //     // var partnerName;
+  //     // var partnerRef=getPartnerName(data.get("partnerId")).map((event) =>{
+  //     //   partnerName=event["partnerName"]
+  //     //
+  //     // });
+  //     var reward = Partner(
+  //       partnerId: data.id,
+  //       partnerName: data.get("partnerName")
+  //     );
+  //     _partners.add(reward);
+  //   }
+  //   // notifyListeners();
+  // }
 
-  List<Partner> get partners => _partners;
+  // List<Partner> get partners => _partners;
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/controller/user_controller.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
+import 'package:steps_tracker_prototype/utils/pedometer.dart';
 import 'package:steps_tracker_prototype/view/landing_page.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key key}) : super(key: key);
