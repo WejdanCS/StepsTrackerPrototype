@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/controller/user_controller.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
-import 'package:steps_tracker_prototype/utils/pedometer.dart';
 import 'package:steps_tracker_prototype/view/landing_page.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key key}) : super(key: key);
@@ -13,6 +12,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
     try{
     await _userController.signOutUser();
     print("signOut Successfully");
+
     Navigator.of(context).popAndPushNamed(LandingPage.id);
     }catch(e){
     print("Error:${e.message}");
