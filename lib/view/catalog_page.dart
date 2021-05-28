@@ -55,31 +55,12 @@ class _CatalogPageState extends State<CatalogPage> {
     super.dispose();
   }
 
-
-  // @override
-  // void initState() {
-  //   // _rewardController.getData();
-  //   // _rewardController.getData();
-  //   super.initState();
-  //
-  // }
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   // _rewardController.getData().listen((event) {
-  //   //   print(event.rewardName);
-  //   // });
-  //   super.didChangeDependencies();
-  // }
-
   @override
   Widget build(BuildContext context) {
     _rewardController = Provider.of<RewardController>(context);
 
     print(_rewardController.rewards.length);
 
-
-    // final _partnersController=Provider.of<PartnersController>(context);
     double _width = MediaQuery
         .of(context)
         .size
@@ -129,7 +110,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                                   children: [
                                                     Image.network(
                                                       rewards[index].rewardImage, fit: BoxFit.fill,
-                                                      width: _width,),
+                                                      width: _width,height: _height*0.3,),
                                                     Positioned(
                                                         left: _width * 0.01,
                                                         top: _height * 0.01,
