@@ -5,7 +5,7 @@ class StepsTracker extends ChangeNotifier{
 
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
-  String _status = '?', _steps = '?';
+  String _status = 'unknown', _steps = 'unknown';
   get steps => _steps;
 
   Stream<StepCount> get stepCountStream =>

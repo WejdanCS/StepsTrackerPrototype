@@ -29,7 +29,7 @@ dependencies:
   provider: ^5.0.0
   pedometer: ^3.0.0
   flutter_svg: ^0.22.0
-  async: ^2.5.0
+  permission_handler: ^8.0.0+2
 
 
   # The following adds the Cupertino Icons font to your application.

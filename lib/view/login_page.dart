@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/CustomWidgets/custom_text.dart';
 import 'package:steps_tracker_prototype/controller/user_controller.dart';
@@ -99,7 +100,10 @@ class LoginPage extends StatelessWidget {
                                       // shape:
                                     ),
                                     child: Text("Login"),
-                                    onPressed: ()=>{userController.loginUser(context, _nameController)}
+                                    onPressed: ()=>{
+                                      // askPermission(context),
+                                      userController.loginUser(context, _nameController)
+                                    }
 
                                   //  Firebase login >>
                                   //  TODO:check name if null or empty
@@ -129,6 +133,8 @@ class LoginPage extends StatelessWidget {
 
     );
   }
+
+
 
   // _loginUser(context,user,_nameController)async {
   //   try{

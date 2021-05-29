@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
 import 'package:steps_tracker_prototype/view/ProfilePage.dart';
 import 'package:steps_tracker_prototype/view/catalog_page.dart';
@@ -20,8 +21,18 @@ class _HomePageState extends State<HomePage> {
     Container(color: Colors.white70,),
     ProfilePage(),
   ];
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  // }
   @override
   Widget build(BuildContext context) {
+    // showDialog(context: context, builder: (BuildContext context) {
+    // return Text("fff");
+    // });
+    askPermission(context);
+    checkPermission();
     return Scaffold(
       backgroundColor: Colors.white,
 
@@ -66,12 +77,51 @@ class _HomePageState extends State<HomePage> {
       _currentIndex = index;
     });
   }
+
+  Future<void> checkPermission () async {
+    print("status:${await Permission.activityRecognition.status}");
+
+  }
+}
+void askPermission(context)async{
+  var status = await Permission.activityRecognition.status;
+  if(status.isDenied){
+    print("status 222");
+
+    var result=await Permission.activityRecognition.request();
+      if(result.isPermanentlyDenied){
+        print("status 33");
+        await showDialog(
+            context: context,
+            builder:
+                (BuildContext context)
+            {
+              return
+                AlertDialog(
+                  title: Text('Activity Recognition Permission'),
+                  content: Text(
+                      'This app needs Activity Recognition access to calculate your steps'),
+                  actions: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Constant.primaryColor),
+                      child: Text('Deny'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Constant.primaryColor),
+                      child: Text('Settings'),
+                      onPressed: () =>{
+                         openAppSettings
+                      })
+                  ],);
+            });
+      }
+
+  }
 }
 
 
 
-void cataloge(){
-  print("go to Cataloge");
-}
+
 
 
