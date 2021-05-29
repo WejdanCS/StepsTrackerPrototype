@@ -110,9 +110,10 @@ void askPermission(context)async{
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: Constant.primaryColor),
                       child: Text('Settings'),
-                      onPressed: () =>{
-                         openAppSettings
-                      })
+                      onPressed: () => {
+                        openAppSettings()
+                      }
+                      )
                   ],);
             });
       }

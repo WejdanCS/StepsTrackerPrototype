@@ -81,7 +81,7 @@ class _HomeContentState extends State<HomeContent> {
                              borderRadius: BorderRadius.all(Radius.circular(50))
                          ),
                          child: Center(
-                           child: Text("${"55"}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white)),
+                           child: Text("${user.points}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white)),
                          ),
                        ),
 
@@ -113,6 +113,8 @@ class _HomeContentState extends State<HomeContent> {
     _stepsTrackerProvider=Provider.of<StepsTracker>(context);
     _stepsTrackerProvider.initPlatformState();
     userController.saveSteps(_stepsTrackerProvider.steps);
+    //add points
+    userController.addPoints(_stepsTrackerProvider.steps);
     super.didChangeDependencies();
   }
 }

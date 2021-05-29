@@ -30,21 +30,21 @@ class StepsTracker extends ChangeNotifier{
   void onStepCountError(error) {
     print('onStepCountError: $error');
     _steps = 'Step Count not available';
-    notifyListeners();
+    // notifyListeners();
   }
 
   void onStepCount(StepCount event) {
     print(event);
     print(event.timeStamp);
     _steps = event.steps.toString();
-    notifyListeners();
+    // notifyListeners();
   }
 
   void onPedestrianStatusError(error) {
     print('onPedestrianStatusError: $error');
     _status = 'Pedestrian Status not available';
     print(_status);
-    notifyListeners();
+    // notifyListeners();
   }
 
   Stream<PedestrianStatus> get pedestrianStatusStream =>

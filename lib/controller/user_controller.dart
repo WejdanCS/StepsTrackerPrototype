@@ -59,6 +59,21 @@ class UserController extends ChangeNotifier{
 
     // notifyListeners();
   }
+  void addPoints(String steps){
+    print("Steps ::$steps");
+    try{
+      double stepsInt=double.parse(steps);
+      int newPoints=((stepsInt/100)*50).round();
+      stepsTrackerUser.points=newPoints;
+      FireStoreFunctions().updatePoints(stepsTrackerUser.points,stepsTrackerUser.uid);
+      // FireStoreFunctions().updatePoints(stepsTrackerUser.points,stepsTrackerUser.uid);
+      print("your points are:$newPoints");
+
+    }catch(e){
+      print(e);
+    }
+    // notifyListeners();
+  }
 }
 
 
