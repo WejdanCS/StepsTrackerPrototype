@@ -63,16 +63,36 @@ class UserController extends ChangeNotifier{
     print("Steps ::$steps");
     try{
       double stepsInt=double.parse(steps);
-      int newPoints=((stepsInt/100)*50).round();
-      stepsTrackerUser.points=newPoints;
-      FireStoreFunctions().updatePoints(stepsTrackerUser.points,stepsTrackerUser.uid);
+      int totalPoints=((stepsInt/100)*50).round();
+      stepsTrackerUser.totalPoints=totalPoints;
+      //update total points
+      FireStoreFunctions().updatePoints(stepsTrackerUser.totalPoints,stepsTrackerUser.uid);
       // FireStoreFunctions().updatePoints(stepsTrackerUser.points,stepsTrackerUser.uid);
-      print("your points are:$newPoints");
+      print("your points are:$totalPoints");
 
     }catch(e){
       print(e);
     }
     // notifyListeners();
+  }
+  void exchangePoints(int userPoints,int rewardPoints,int totalRewardPoints){
+    int totalPoints=(userPoints-totalRewardPoints);
+    if(totalPoints>=rewardPoints){
+      int newPoints=totalPoints-rewardPoints;
+      print("new Points =$newPoints");
+      stepsTrackerUser.newPoints=newPoints;
+      stepsTrackerUser.totalRewardPoints+=rewardPoints;
+
+
+
+
+    }else if(totalPoints<rewardPoints){
+      // showDialog(context: context, builder: builder)
+      int needPoints=rewardPoints-totalPoints;
+      print("you can't exchange your points,because you need $needPoints to get this reward");
+    }
+
+
   }
 }
 

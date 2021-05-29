@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/controller/partners_controller.dart';
 import 'package:steps_tracker_prototype/controller/rewards_controller.dart';
+import 'package:steps_tracker_prototype/controller/user_controller.dart';
 import 'package:steps_tracker_prototype/model/partner.dart';
 import 'package:steps_tracker_prototype/model/reward.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
@@ -17,6 +18,7 @@ class CatalogPage extends StatefulWidget {
 }
 
 class _CatalogPageState extends State<CatalogPage> {
+  UserController userController;
   // List dataList=[];
   RewardController _rewardController;
   // final _rewardController = RewardController();
@@ -174,6 +176,12 @@ class _CatalogPageState extends State<CatalogPage> {
                                                       child: Text("Get this reward"),
 
                                                       onPressed: () {
+                                                        int rewardPoints=rewards[index].points;
+                                                        int userPoints=userController.stepsTrackerUser.totalPoints;
+                                                        int totalRewardPoints=userController.stepsTrackerUser.totalRewardPoints;
+                                                        print("reward points$rewardPoints");
+                                                        print("user points:$userPoints");
+                                                        userController.exchangePoints(userPoints,rewardPoints,totalRewardPoints);
                                                         print("clicked");
                                                       }
                                                   ),
@@ -190,6 +198,12 @@ class _CatalogPageState extends State<CatalogPage> {
             },
           )
         ));
+  }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    userController=Provider.of<UserController>(context);
+    super.didChangeDependencies();
   }
 
 }
