@@ -90,12 +90,87 @@ class _HomeContentState extends State<HomeContent> {
                  SizedBox(width: _width*0.03,),
                  Padding(
                    padding: EdgeInsets.only(top: _height*0.02),
-                   child: Text("You can't replace points with coupons"),
-                 )
+                   child: (user.newPoints>=5)?Text("Check rewards catalog"):Text("You can't replace points with coupons"),
+                 ),
+
                ],
               )
               ),
             ),
+            Container(
+              width: _width,
+              height: _height*0.39,
+              // color: Constant.primaryColor,
+              child: Column(
+                children: [
+                  Text("Leader board",style: TextStyle(color: Constant.primaryColor,fontWeight: FontWeight.bold,fontSize: 18),),
+                 Padding(padding:EdgeInsets.symmetric(horizontal: _width*0.03,vertical: _height*0.02),
+                 child:  Column(
+                   children: [
+                     Card(
+                       // margin:EdgeInsets.symmetric(horizontal: _width*0.02),
+
+                       child: Container(
+                         margin:EdgeInsets.only(top: _height*0.02,bottom: _height*0.02),
+                         child: Row(
+
+                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                             children:[
+
+                               Text("Name",style: TextStyle(color: Constant.primaryColor,fontWeight: FontWeight.normal,fontSize: 16)),
+                               Text("Steps",style: TextStyle(color: Constant.primaryColor,fontWeight: FontWeight.normal,fontSize: 16)),
+                               Text("Points",style: TextStyle(color: Constant.primaryColor,fontWeight: FontWeight.normal,fontSize: 16))
+
+                             ]
+                         ),
+                       ),
+
+                     ),
+                     ListView(
+                       shrinkWrap: true,
+                       children: [
+                         //if this user is current user
+                         Card(
+                           color: Constant.primaryColor,
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+                               children:[
+                                 Text("${user.name}"),
+                                 Chip(label: Text("${user.steps}")),
+                                 Chip(label: Text("${user.newPoints}"))
+
+                               ]
+                           ),
+                         ),
+                         //other user
+                         Card(
+                           child: Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                               children:[
+                                 Text("${user.name}"),
+                                 Chip(label: Text("${user.steps}")),
+                                 Chip(label: Text("${user.newPoints}"))
+
+                               ]
+                           ),
+                         )
+                       ],
+                       // children: [
+                       //   Row(
+                       //     children: [
+                       //       Text("${user.name}"),
+                       //       Chip(label: Text("${user.steps}")),
+                       //
+                       //     ],
+                       //   )
+                       // ],
+                     )
+                   ],
+                 ),)
+                ],
+              ),
+            )
+
             //leader board
           ],
 
@@ -115,7 +190,10 @@ class _HomeContentState extends State<HomeContent> {
     userController.saveSteps(_stepsTrackerProvider.steps);
     //add points
     userController.addPoints(_stepsTrackerProvider.steps);
-    user.newPoints=user.totalPoints-user.totalRewardPoints;
+    // if(user.steps){
+    //
+    // }
+    // user.newPoints=user.totalPoints-user.totalRewardPoints;
     // user.newPoints=user.totalPoints;
     super.didChangeDependencies();
   }

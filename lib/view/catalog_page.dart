@@ -91,6 +91,7 @@ class _CatalogPageState extends State<CatalogPage> {
                     rewardDesc: doc["rewardDesc"],
                     points: doc["points"],
                     rewardImage: doc["rewardImage"],
+                    coupon: doc["coupon"],
                     partner: partnerRef
                     )
                   );
@@ -176,12 +177,15 @@ class _CatalogPageState extends State<CatalogPage> {
                                                       child: Text("Get this reward"),
 
                                                       onPressed: () {
+
                                                         int rewardPoints=rewards[index].points;
-                                                        int userPoints=userController.stepsTrackerUser.totalPoints;
+                                                        int totalPoints=userController.stepsTrackerUser.totalPoints;
                                                         int totalRewardPoints=userController.stepsTrackerUser.totalRewardPoints;
+
                                                         print("reward points$rewardPoints");
-                                                        print("user points:$userPoints");
-                                                        userController.exchangePoints(userPoints,rewardPoints,totalRewardPoints);
+                                                        print("totalPoints points:$totalPoints");
+                                                        print("total Reward Points :$totalRewardPoints");
+                                                        userController.exchangePoints(context,totalPoints,rewardPoints,totalRewardPoints,rewards[index].coupon);
                                                         print("clicked");
                                                       }
                                                   ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:steps_tracker_prototype/model/User.dart';
 import 'package:steps_tracker_prototype/services/auth/authentication.dart';
 import 'package:steps_tracker_prototype/services/auth/firebase_functions.dart';
+import 'package:steps_tracker_prototype/utils/constants.dart';
 import 'package:steps_tracker_prototype/utils/error_handler.dart';
 
 
@@ -65,9 +66,10 @@ class UserController extends ChangeNotifier{
       double stepsInt=double.parse(steps);
       int totalPoints=((stepsInt/100)*50).round();
       stepsTrackerUser.totalPoints=totalPoints;
+      stepsTrackerUser.newPoints=stepsTrackerUser.totalPoints-stepsTrackerUser.totalRewardPoints;
       //update total points
-      FireStoreFunctions().updatePoints(stepsTrackerUser.totalPoints,stepsTrackerUser.uid);
-      // FireStoreFunctions().updatePoints(stepsTrackerUser.points,stepsTrackerUser.uid);
+      FireStoreFunctions().updatePoints(Constant.totalPoints,stepsTrackerUser.totalPoints,stepsTrackerUser.uid);
+      FireStoreFunctions().updatePoints(Constant.newPoints,stepsTrackerUser.newPoints,stepsTrackerUser.uid);
       print("your points are:$totalPoints");
 
     }catch(e){
@@ -75,21 +77,156 @@ class UserController extends ChangeNotifier{
     }
     // notifyListeners();
   }
-  void exchangePoints(int userPoints,int rewardPoints,int totalRewardPoints){
+  void exchangePoints(context,int userPoints,int rewardPoints,int totalRewardPoints,String coupon){
     int totalPoints=(userPoints-totalRewardPoints);
-    if(totalPoints>=rewardPoints){
-      int newPoints=totalPoints-rewardPoints;
-      print("new Points =$newPoints");
-      stepsTrackerUser.newPoints=newPoints;
-      stepsTrackerUser.totalRewardPoints+=rewardPoints;
+    int newPoints=totalPoints-rewardPoints;
+    print("new points:$newPoints");
+    print("total Points:$totalPoints");
+    bool isOk=false;
+    if(totalPoints>=rewardPoints&&totalPoints>=0&&newPoints>=0){
 
+      showDialog(context: context, builder: (BuildContext build){
+        return AlertDialog(
+          title: Column(
+            children: [
+              Text("Confirm exchange Points"),
+              Divider()
+            ],
+          ),
+          content: Text("you are sure to take this reward??"),
+          actions: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Constant.secondaryColor,
+                ),
+                onPressed: (){
+                  // Navigator.of(context).pop();
 
+                  stepsTrackerUser.newPoints=newPoints;
+                  stepsTrackerUser.totalRewardPoints+=rewardPoints;
+                  FireStoreFunctions().updatePoints(Constant.totalRewardPoints,stepsTrackerUser.totalRewardPoints,stepsTrackerUser.uid);
+                  FireStoreFunctions().updatePoints(Constant.newPoints,stepsTrackerUser.newPoints,stepsTrackerUser.uid);
+                  isOk=true;
+                  print(isOk.toString());
+                  Navigator.of(context).pop();
+                  print(isOk.toString());
+                  print(isOk.toString());
+                  if(isOk==true){
+                    showDialog(context: context, builder: (BuildContext build){
+                      return AlertDialog(
+                        title: Column(
+                          children: [
+                            Text("Exchange Points"),
+                            Divider()
+                          ],
+                        ),
+                        //Todo display coupon of this reward
+                        content: Text("Your Coupon is $coupon"),
+                        actions: [
+                          ElevatedButton(
+                            child:Text("ok"),
+                            style: ElevatedButton.styleFrom(
+                              primary: Constant.secondaryColor,
+                            ),
 
+                            onPressed: (){
+                              Navigator.of(context).pop();
+                            },)
 
-    }else if(totalPoints<rewardPoints){
+                        ],
+
+                      );
+                    }
+                    );
+
+                  }
+
+                  // Navigator.of(context).popAndPushNamed(CouponDialog.id);
+
+                  // if(newPoints>=0){
+                  //   print("new Points =$newPoints");
+                  //   stepsTrackerUser.newPoints=newPoints;
+                  //   stepsTrackerUser.totalRewardPoints+=rewardPoints;
+                  //   FireStoreFunctions().updatePoints(Constant.totalRewardPoints,stepsTrackerUser.totalRewardPoints,stepsTrackerUser.uid);
+                  //   FireStoreFunctions().updatePoints(Constant.newPoints,stepsTrackerUser.newPoints,stepsTrackerUser.uid);
+                  //   showDialog(context: context, builder: (BuildContext build){
+                  //     return AlertDialog(
+                  //       title: Column(
+                  //         children: [
+                  //           Text("Exchange Points"),
+                  //           Divider()
+                  //         ],
+                  //       ),
+                  //       //Todo display coupon of this reward
+                  //       content: Text("Your Coupon is $coupon"),
+                  //       actions: [
+                  //         ElevatedButton(
+                  //           child:Text("ok"),
+                  //           style: ElevatedButton.styleFrom(
+                  //             primary: Constant.secondaryColor,
+                  //           ),
+                  //
+                  //           onPressed: (){
+                  //             Navigator.of(context).pop();
+                  //           },)
+                  //
+                  //       ],
+                  //
+                  //     );
+                  //   }
+                  //   );
+                  // }else{
+                  //   Navigator.of(context).pop();
+                  // }
+
+                  // isDone=true;
+                  // if(isDone==true){
+                  //   Navigator.of(context).pop();
+                  // }
+                },
+                child: Text("Ok")),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Constant.secondaryColor,
+                ),
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                child: Text("No"))
+
+          ],
+        );
+      }
+      );
+
+    }
+    else if(totalPoints<rewardPoints){
       // showDialog(context: context, builder: builder)
       int needPoints=rewardPoints-totalPoints;
       print("you can't exchange your points,because you need $needPoints to get this reward");
+      showDialog(context: context, builder: (BuildContext build){
+        return AlertDialog(
+          title: Column(
+            children: [
+              Text("Exchange Points"),
+              Divider()
+            ],
+          ),
+          content:
+              Text("You can't exchange your points ,because you need $needPoints points to get this reward"),
+
+          actions: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Constant.secondaryColor,
+                ),
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                child: Text("Ok"))
+          ],
+        );
+      });
     }
 
 

@@ -13,7 +13,7 @@ Future <void> addUser(StepsTrackerUser user)async{
     await _firestore.collection(Constant.collectionName).doc(user.uid).set({
       Constant.name: user.name,
       Constant.nOfSteps: user.steps,
-      Constant.points: user.points
+      Constant.totalPoints: user.totalPoints
     });
     print("sucessfully added user:$user");
   }catch(e){
@@ -32,13 +32,13 @@ Future <void> addUser(StepsTrackerUser user)async{
     }
 
   }
-  Future<void> updatePoints(points,String uid) async {
+  Future<void> updatePoints(field,points,String uid) async {
     // steps,stepsTrackerUser.uid
     try {
       await _firestore.collection(Constant.collectionName).doc(uid).update({
-        Constant.points: points,
+        field: points,
       });
-      print("sucessfully update points:$points");
+      print("sucessfully update $field points:$points");
     }catch(e){
       print("ERRROR:$e");
     }

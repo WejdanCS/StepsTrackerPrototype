@@ -6,7 +6,7 @@ class StepsTrackerUser {
   String name;
   User user;
   String steps = "unknown";
-  int points = 0;
+  // int points = 0;
   int totalPoints=0;
   int newPoints=0;
   int totalRewardPoints=0;

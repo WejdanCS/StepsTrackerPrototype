@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         LandingPage.id: (context) => LandingPage(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         LoginPage.id: (context) => LoginPage(),
-        CatalogPage.id:(context)=>CatalogPage()
+        CatalogPage.id:(context)=>CatalogPage(),
       },
     );
   }

@@ -12,7 +12,9 @@ class Constant{
   static String userId="uid";
   static String name="name";
   static String nOfSteps="nOfSteps";
-  static String points="points";
+  static String totalPoints="totalPoints";
+  static String totalRewardPoints="totalRewardPoints";
+  static String newPoints="newPoints";
 
 
 
