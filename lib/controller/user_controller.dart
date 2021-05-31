@@ -7,10 +7,31 @@ import 'package:steps_tracker_prototype/services/auth/authentication.dart';
 import 'package:steps_tracker_prototype/services/auth/firebase_functions.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
 import 'package:steps_tracker_prototype/utils/error_handler.dart';
+// import 'package:steps_tracker_prototype/utils/pedometer.dart';
 
 
-class UserController extends ChangeNotifier{
+
+class UserController with ChangeNotifier{
   StepsTrackerUser stepsTrackerUser=StepsTrackerUser();
+  // StepsTracker stepsTracker=StepsTracker();
+
+  // DateTime date=;
+
+  initPlatformState(){
+    // stepsTracker.initPlatformState();
+    // stepsTracker.pedestrianStatusStream
+    //     .listen(stepsTracker.onPedestrianStatusChanged)
+    //     .onError(stepsTracker.onPedestrianStatusError);
+    // stepsTracker.stepCountStream.listen(stepsTracker.onStepCount).onError(stepsTracker.onStepCountError);
+    // stepsTracker.onStepCount(event){
+    //
+    // }
+    // print("status");
+    // print(stepsTracker.status);
+
+    // notifyListeners();
+  }
+
 
   loginUser(context,nameController)async {
     try{
@@ -18,14 +39,19 @@ class UserController extends ChangeNotifier{
         // stepsTrackerUser.name = _nameController.text;
          User user= await signIn();
         // stepsTrackerUser.uid=stepsTrackerUser.user.uid;
-         stepsTrackerUser=StepsTrackerUser(name: nameController.text,uid: user.uid,user: user);
+         stepsTrackerUser=StepsTrackerUser(name: nameController.text,uid: user.uid,user: user,newPoints: 0,totalPoints: 0,totalRewardPoints: 0);
         print("User:${stepsTrackerUser.user.uid}");
-        notifyListeners();
+
+         // stepsTracker.initPlatformState();
+         // print("NewSteps");
+         // print(stepsTracker.steps);
+
+         notifyListeners();
         // return "Sign in successfully";
       }
       else {
         print("Error:Name is Empty");
-        throw ErrorMessage("Name is Empty");
+        throw ErrorMessage("Name is Empty, please enter your name");
       }
       print("new user :$stepsTrackerUser");
       await FireStoreFunctions().addUser(stepsTrackerUser);
@@ -40,6 +66,14 @@ class UserController extends ChangeNotifier{
             return AlertDialog(
               title: Text("Alert Dialog"),
               content: Text("${e.message}"),
+              actions: [
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Constant.secondaryColor,
+                    ),
+                    onPressed: ()=>Navigator.of(context).pop(),
+                    child: Text("ok"))
+              ],
             );
           }
       );
@@ -54,23 +88,64 @@ class UserController extends ChangeNotifier{
     notifyListeners();
   }
 
-  void saveSteps(dynamic steps){
-    stepsTrackerUser.steps=steps;
-    FireStoreFunctions().updateSteps(steps,stepsTrackerUser.uid);
+  // void saved()async{
+  //   if(stepsTracker.steps!=stepsTrackerUser.steps){
+  //     print("dd");
+  //     stepsTrackerUser.steps=await stepsTracker.steps;
+  //   }
+  //   // notifyListeners();
+  // }
+  saveSteps(dynamic steps) async {
+    stepsTrackerUser.steps=await steps;
+    print("saved Steps");
+    print(stepsTrackerUser.steps);
+    // Stream stepsStream=Stream.value(steps);
+
+    await FireStoreFunctions().updateSteps(steps,stepsTrackerUser.uid);
 
     // notifyListeners();
+    // return stepsStream;
   }
+
+
   void addPoints(String steps){
     print("Steps ::$steps");
     try{
+
       double stepsInt=double.parse(steps);
-      int totalPoints=((stepsInt/100)*50).round();
-      stepsTrackerUser.totalPoints=totalPoints;
+      // int totalPoints=0;
+
+      // stepsTrackerUser.totalPoints=(stepsInt).round();
+      // if(stepsTrackerUser.totalPoints==0){
+      //   // totalPoints=((stepsInt/100)*50).round();
+        stepsTrackerUser.totalPoints=((stepsInt/100)*50).round();
+        // if(stepsTrackerUser.previousPoints==0){
+        //   stepsTrackerUser.previousPoints= stepsTrackerUser.totalPoints;
+        // }else{
+        //   stepsTrackerUser.extraPoints=stepsTrackerUser.totalPoints-stepsTrackerUser.previousPoints;
+        //   stepsTrackerUser.previousPoints=stepsTrackerUser.totalPoints;
+        // }
+        // print("total points:${stepsTrackerUser.totalPoints}");
+        // print("prev points:${stepsTrackerUser.previousPoints}");
+
+        //
+      // }else{
+      //   // stepsTrackerUser.oldPoints=(stepsTrackerUser.totalPoints-stepsTrackerUser.newPoints);
+      //
+      // }
+
+      print("old points:${stepsTrackerUser.totalPoints}");
       stepsTrackerUser.newPoints=stepsTrackerUser.totalPoints-stepsTrackerUser.totalRewardPoints;
+      print("new Points :${stepsTrackerUser.newPoints}");
+      print("date:${DateTime.now().toUtc()}");
       //update total points
       FireStoreFunctions().updatePoints(Constant.totalPoints,stepsTrackerUser.totalPoints,stepsTrackerUser.uid);
       FireStoreFunctions().updatePoints(Constant.newPoints,stepsTrackerUser.newPoints,stepsTrackerUser.uid);
-      print("your points are:$totalPoints");
+      bool isSpentPoints=false;
+      FireStoreFunctions().updateHistory(stepsTrackerUser.newPoints,stepsTrackerUser.uid, DateTime.now().toUtc(),isSpentPoints);
+
+      print("your points are:${stepsTrackerUser.totalPoints}");
+
 
     }catch(e){
       print(e);
@@ -106,6 +181,8 @@ class UserController extends ChangeNotifier{
                   stepsTrackerUser.totalRewardPoints+=rewardPoints;
                   FireStoreFunctions().updatePoints(Constant.totalRewardPoints,stepsTrackerUser.totalRewardPoints,stepsTrackerUser.uid);
                   FireStoreFunctions().updatePoints(Constant.newPoints,stepsTrackerUser.newPoints,stepsTrackerUser.uid);
+                  bool isSpentPoints=true;
+                  FireStoreFunctions().updateHistory(rewardPoints,stepsTrackerUser.uid, DateTime.now().toUtc(),isSpentPoints);
                   isOk=true;
                   print(isOk.toString());
                   Navigator.of(context).pop();
@@ -230,6 +307,11 @@ class UserController extends ChangeNotifier{
     }
 
 
+  }
+  Stream userHistory(uid){
+    // print("uid:${stepsTrackerUser.uid}");
+   return FireStoreFunctions().getHistory(uid);
+   // notifyListeners();
   }
 }
 

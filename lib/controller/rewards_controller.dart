@@ -1,5 +1,5 @@
 
-import 'package:async/async.dart';
+// import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:steps_tracker_prototype/controller/partners_controller.dart';
@@ -42,7 +42,7 @@ class RewardController extends ChangeNotifier {
     return _fireStore.collection("rewards").snapshots();
   }
    Stream <Reward> getData(){
-     var partnerId;
+     // var partnerId;
     // final client = http.Client();
      _isReady=false;
      getRewardData().forEach((snapshot) {

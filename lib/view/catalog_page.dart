@@ -3,10 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:steps_tracker_prototype/controller/partners_controller.dart';
+// import 'package:steps_tracker_prototype/controller/partners_controller.dart';
 import 'package:steps_tracker_prototype/controller/rewards_controller.dart';
 import 'package:steps_tracker_prototype/controller/user_controller.dart';
-import 'package:steps_tracker_prototype/model/partner.dart';
+// import 'package:steps_tracker_prototype/model/partner.dart';
 import 'package:steps_tracker_prototype/model/reward.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
 class CatalogPage extends StatefulWidget {

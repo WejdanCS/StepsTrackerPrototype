@@ -5,9 +5,9 @@ class ErrorMessage implements Exception{
   ErrorMessage(this._message);
 
   get message => _message;
-  set message(value) {
-    _message = value;
-  }
+  // set message(value) {
+  //   _message = value;
+  // }
 
   @override
   String toString() {

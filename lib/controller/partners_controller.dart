@@ -1,8 +1,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:steps_tracker_prototype/model/partner.dart';
-import 'package:steps_tracker_prototype/model/reward.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:steps_tracker_prototype/model/partner.dart';
+// import 'package:steps_tracker_prototype/model/reward.dart';
 
 class PartnersController {
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;

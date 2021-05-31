@@ -2,27 +2,35 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:pedometer/pedometer.dart';
+// import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:steps_tracker_prototype/CustomWidgets/custom_text.dart';
 import 'package:steps_tracker_prototype/controller/user_controller.dart';
-import 'package:steps_tracker_prototype/model/User.dart';
-import 'package:steps_tracker_prototype/services/auth/firebase_functions.dart';
+// import 'package:steps_tracker_prototype/model/User.dart';
+// import 'package:steps_tracker_prototype/services/auth/firebase_functions.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
 class LoginPage extends StatelessWidget {
+  TextEditingController _nameController;
+  UserController userController;
+  StepCount value;
   static const id="/LoginPage";
-  const LoginPage({Key key}) : super(key: key);
+   LoginPage({Key key}) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays ([]);
-    TextEditingController _nameController = TextEditingController();
+    _nameController = TextEditingController();
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
     // StepsTrackerUser user=StepsTrackerUser();
     // final _userProvider=Provider.of<StepsTrackerUser>(context);
-    final UserController userController=Provider.of<UserController>(context);
+    userController=Provider.of<UserController>(context);
+    value = Provider.of<StepCount>(context,listen: true);
+    print(value);
+    print(userController);
+
 
 
     return Scaffold(
@@ -121,7 +129,7 @@ class LoginPage extends StatelessWidget {
                              SizedBox(height: _height*0.05,),
                              Align(
                                   alignment: Alignment.bottomLeft,
-                                  child:               SvgPicture.asset("assets/images/human-footprint.svg"),
+                                  child:SvgPicture.asset("assets/images/human-footprint.svg"),
                                  ),
                       ] ,
                     )
