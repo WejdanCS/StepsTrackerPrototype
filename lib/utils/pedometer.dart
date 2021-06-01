@@ -1,24 +1,37 @@
-import 'package:flutter/material.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:pedometer/pedometer.dart';
 
-class StepsTracker extends ChangeNotifier{
+class StepsTracker with ChangeNotifier{
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
-  String _status = '?', _steps = '?';
+  String _status = 'unknown', _steps = 'unknown';
+
+  DateTime userLoginDate;
+
   get steps => _steps;
 
-  //--------user steps
-  void initPlatformState() {
+  String get status => _status;
+
+  Stream<PedestrianStatus> statusStreamProvider (){
+    _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
+
+    return _pedestrianStatusStream;
+  }
+
+  void initPlatformState(){
     print("ggg");
     _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
+
+
     _pedestrianStatusStream
         .listen(onPedestrianStatusChanged)
         .onError(onPedestrianStatusError);
-
     _stepCountStream = Pedometer.stepCountStream;
     _stepCountStream.listen(onStepCount).onError(onStepCountError);
-    // notifyListeners();
   }
+
+
   void onPedestrianStatusChanged(PedestrianStatus event) {
     print(event);
     _status = event.status;
@@ -32,7 +45,6 @@ class StepsTracker extends ChangeNotifier{
   }
 
   void onStepCount(StepCount event) {
-    print(event);
     _steps = event.steps.toString();
     notifyListeners();
   }
@@ -41,6 +53,7 @@ class StepsTracker extends ChangeNotifier{
     print('onPedestrianStatusError: $error');
     _status = 'Pedestrian Status not available';
     print(_status);
+
     notifyListeners();
   }
 }

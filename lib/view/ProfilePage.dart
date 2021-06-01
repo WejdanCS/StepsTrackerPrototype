@@ -13,6 +13,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
+
   @override
   Widget build(BuildContext context) {
     var _userController=Provider.of<UserController>(context);
@@ -23,7 +24,6 @@ class _ProfilePageState extends State<ProfilePage> {
     return Container(
       width: _width,
       height: _height,
-      // color: Constant.primaryColor,
       child: Column(
         children: [
           Column(
@@ -36,6 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
     try{
     await _userController.signOutUser();
     print("signOut Successfully");
+
     Navigator.of(context).popAndPushNamed(LandingPage.id);
     }catch(e){
     print("Error:${e.message}");

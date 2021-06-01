@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:steps_tracker_prototype/utils/constants.dart';
 class CustomText extends StatelessWidget {
   final String text;
   final FontWeight fontWeight;
