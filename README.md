@@ -7,7 +7,7 @@ Developed a steps tracker applicaion using Flutter and Firebase, where users can
 # Usage
  ```
    - $ git clone https://github.com/WejdanCS/steps_tracker_prototype.git
-   - $ cd steps_tracker_prototype
+   - $ cd StepsTrackerPrototype
    - $ flutter pub get
    - $ flutter run
  ```
