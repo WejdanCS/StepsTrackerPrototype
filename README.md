@@ -3,7 +3,8 @@
 ## About
 Developed a steps tracker applicaion using Flutter and Firebase, where users can register as anonymous user and track their steps and get extra points where user can exchange it with reward.
 ## Notice:
- This version only support Android 
+ - This version only support Android 
+ - This version working on Flutter 2.0.6 and Dart 2.12.3
 # Usage
  ```
    - $ git clone https://github.com/WejdanCS/steps_tracker_prototype.git
