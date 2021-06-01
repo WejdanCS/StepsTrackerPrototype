@@ -45,7 +45,8 @@ class _HomeContentState extends State<HomeContent> {
         builder: (context, userController, child) {
           return (!userController.isLoading)?Consumer<StepsTracker>(builder: (context,stepsTracker,child){
             //initialize step counter and start streaming
-            stepsTracker.initPlatformState();
+
+            // stepsTracker.initPlatformState();
 
             return (stepsTracker!=null)?Container(
               child: Padding(

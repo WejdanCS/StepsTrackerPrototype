@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
     userController=Provider.of<UserController>(context);
     stepsTracker=Provider.of<StepsTracker>(context);
+
     userController.saveSteps(stepsTracker.steps);
     userController.addPoints(stepsTracker.steps,context);
   }
