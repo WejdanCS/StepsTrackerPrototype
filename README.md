@@ -1,4 +1,4 @@
-# steps_tracker_prototype
+# StepsTrackerPrototype
 
 ## About
 Developed a steps tracker applicaion using Flutter and Firebase, where users can register as anonymous user and track their steps and get extra points where user can exchange it with reward.
