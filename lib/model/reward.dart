@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:steps_tracker_prototype/model/partner.dart';
 
 class Reward{
   String rewardId;

@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:steps_tracker_prototype/controller/partners_controller.dart';
 import 'package:steps_tracker_prototype/controller/rewards_controller.dart';
 import 'package:steps_tracker_prototype/controller/user_controller.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
@@ -10,16 +9,14 @@ import 'package:steps_tracker_prototype/view/catalog_page.dart';
 import 'package:steps_tracker_prototype/view/landing_page.dart';
 import 'package:steps_tracker_prototype/view/login_page.dart';
 
-// import 'model/User.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => UserController()),
-    StreamProvider(create: (context) => StepsTracker().stepCountStreamProvider()),
+    ChangeNotifierProvider(create: (context) => StepsTracker()),
     ChangeNotifierProvider(create: (context)=> RewardController()),
-    // ChangeNotifierProvider(create: (context)=> PartnersController()),
   ],
   child: MyApp()));
 }

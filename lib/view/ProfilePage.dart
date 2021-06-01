@@ -24,7 +24,6 @@ class _ProfilePageState extends State<ProfilePage> {
     return Container(
       width: _width,
       height: _height,
-      // color: Constant.primaryColor,
       child: Column(
         children: [
           Column(

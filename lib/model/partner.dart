@@ -3,6 +3,4 @@ class Partner{
   String partnerName;
 
    Partner({this.partnerId, this.partnerName});
-
-
 }

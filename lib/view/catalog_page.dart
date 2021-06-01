@@ -3,10 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:steps_tracker_prototype/controller/partners_controller.dart';
 import 'package:steps_tracker_prototype/controller/rewards_controller.dart';
 import 'package:steps_tracker_prototype/controller/user_controller.dart';
-// import 'package:steps_tracker_prototype/model/partner.dart';
 import 'package:steps_tracker_prototype/model/reward.dart';
 import 'package:steps_tracker_prototype/utils/constants.dart';
 class CatalogPage extends StatefulWidget {
@@ -19,49 +17,18 @@ class CatalogPage extends StatefulWidget {
 
 class _CatalogPageState extends State<CatalogPage> {
   UserController userController;
-  // List dataList=[];
   RewardController _rewardController;
-  // final _rewardController = RewardController();
-  getStreamData() async{
 
-    //   ..asBroadcastStream();
-    // stream.listen((data) {
-    //   // print(data[0]["partnerId"]);
-    //
-    //   setState(() {
-    //     dataList.add(data[0]);
-    //     dataList.add(data[1]);
-    //   });
-    // });
-
-  }
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //
-  //     _rewardController = Provider.of<RewardController>(super.context);
-  //     _rewardController.getData();
-  //   super.initState();
-  // }
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //
-  //   super.didChangeDependencies();
-  // }
   @override
   void dispose() {
     // TODO: implement dispose
     _rewardController.rewards.clear();
-    // _rewardController.isReady=false;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     _rewardController = Provider.of<RewardController>(context);
-
-    print(_rewardController.rewards.length);
 
     double _width = MediaQuery
         .of(context)
@@ -72,7 +39,6 @@ class _CatalogPageState extends State<CatalogPage> {
         .size
         .height;
     return Scaffold(
-
       appBar: AppBar(
         backgroundColor: Constant.primaryColor,
         title: Text("Rewards Catalog"),
@@ -95,10 +61,7 @@ class _CatalogPageState extends State<CatalogPage> {
                     partner: partnerRef
                     )
                   );
-
-
                 }
-
                 return ListView.builder(itemCount: rewards.length,itemBuilder: (context,index){
 
                   return
@@ -164,7 +127,6 @@ class _CatalogPageState extends State<CatalogPage> {
                                                 SizedBox(height: _height * 0.01,),
                                                 Text(rewards[index]
                                                     .rewardDesc),
-                                                // Divider(color: Colors.grey),
                                                 SizedBox(height: _height * 0.01,),
                                                 Container(
                                                   width: _width,
@@ -177,16 +139,10 @@ class _CatalogPageState extends State<CatalogPage> {
                                                       child: Text("Get this reward"),
 
                                                       onPressed: () {
-
                                                         int rewardPoints=rewards[index].points;
                                                         int totalPoints=userController.stepsTrackerUser.totalPoints;
                                                         int totalRewardPoints=userController.stepsTrackerUser.totalRewardPoints;
-
-                                                        print("reward points$rewardPoints");
-                                                        print("totalPoints points:$totalPoints");
-                                                        print("total Reward Points :$totalRewardPoints");
                                                         userController.exchangePoints(context,totalPoints,rewardPoints,totalRewardPoints,rewards[index].coupon);
-                                                        print("clicked");
                                                       }
                                                   ),
                                                 ),
