@@ -30,7 +30,15 @@ steps they have made since installing the app) compared to all other users, to e
 them to walk more.
 
 # SnapShots
+ ## Login Page and Permission
+![snapshots](/snapshots/logn_permission.svg)
+
+ ## Home Page
 ![snapshots](/snapshots/homePage.svg)
+ ## History
+![snapshots](/snapshots/history.svg)
+ ## Catalog Page
+![snapshots](/snapshots/rewardCatalog.svg)
 
 
 
