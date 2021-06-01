@@ -23,14 +23,18 @@ class UserController with ChangeNotifier{
         isLoading=true;
          User user= await signIn();
          stepsTrackerUser=StepsTrackerUser(name: nameController.text,uid: user.uid,user: user,newPoints: 0,totalPoints: 0,totalRewardPoints: 0,intSteps: 0);
+        await FireStoreFunctions().addUser(stepsTrackerUser);
+        isLoading=false;
+
+        notifyListeners();
       }
       else {
         throw ErrorMessage("Name is Empty, please enter your name");
       }
-      await FireStoreFunctions().addUser(stepsTrackerUser);
-      isLoading=false;
-
-      notifyListeners();
+      // await FireStoreFunctions().addUser(stepsTrackerUser);
+      // isLoading=false;
+      //
+      // notifyListeners();
     }catch(e){
 
       showDialog(
@@ -56,6 +60,7 @@ class UserController with ChangeNotifier{
   Future<void> signOutUser() async {
     await signOut();
     stepsTrackerUser.user=null;
+    isLoading=false;
     notifyListeners();
   }
 
