@@ -47,3 +47,5 @@ app.*.map.json
 
 # ignore partners folder
 /assets/partners
+#
+/android/app/google-services.json
