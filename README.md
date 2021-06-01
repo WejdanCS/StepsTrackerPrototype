@@ -30,7 +30,7 @@ steps they have made since installing the app) compared to all other users, to e
 them to walk more.
 
 # SnapShots
-![snapshots](/snapshots/homePage.jpg)
+![snapshots](/snapshots/homePage.svg)
 
 
 
